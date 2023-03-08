@@ -94,8 +94,8 @@ public class Employee {
         return employees[idNum];
     }
 
-    public static double avarageSalary(Employee[] employees) {
-        return salaryCosts(employees) / (id + 1);
+    public static double averageSalary(Employee[] employees) {
+        return salaryCosts(employees) / employees.length;
     }
 
     public static void listOfEmployeesNames(Employee[] employees) {
