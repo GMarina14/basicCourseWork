@@ -1,3 +1,5 @@
+import java.sql.SQLOutput;
+import java.util.Scanner;
 import java.util.SortedMap;
 
 public class Employee {
@@ -21,9 +23,11 @@ public class Employee {
     public String getName() {
         return name;
     }
+
     public int getDepartment() {
         return department;
     }
+
     public void setDepartment(int department) {
         if (department <= 0 || department > 5) {
             throw new IllegalArgumentException("The department number has to be between 1 and 5 ");
@@ -33,6 +37,7 @@ public class Employee {
         }
 
     }
+
     public double getSalary() {
         return salary;
     }
@@ -103,4 +108,151 @@ public class Employee {
             System.out.println(worker.name);
         }
     }
+
+    public static void indexSalary(Employee[] employees, double percentage) {
+        for (Employee worker : employees) {
+            worker.salary += (worker.salary * percentage / 100);
+        }
+    }
+
+
+    public static Employee employeeWithMinSalaryOfDepartment(Employee[] employees, int department) {
+        double minSalary = 0.0;
+        int workerMinId = 0;
+        for (Employee worker : employees) {
+            if (worker.department == department) {
+                minSalary = worker.salary;
+                break;
+            }
+        }
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i].department == department) {
+                if (employees[i].salary < minSalary) {
+                    minSalary = employees[i].salary;
+                    workerMinId = i;
+                }
+            }
+        }
+        return employees[workerMinId];
+    }
+
+    public static Employee employeeWithMaxSalaryOfDepartment(Employee[] employees, int department) {
+        double maxSalary = 0.0;
+        int workerMaxId = 0;
+
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i].department == department) {
+                if (employees[i].salary > maxSalary) {
+                    maxSalary = employees[i].salary;
+                    workerMaxId = i;
+                }
+            }
+        }
+        return employees[workerMaxId];
+    }
+
+    public static double salaryCostsOfDepartment(Employee[] employees, int department) {
+        double salaryTotal = 0d;
+        for (Employee worker : employees) {
+            if (worker.department == department) {
+                salaryTotal += worker.salary;
+            }
+        }
+        return salaryTotal;
+    }
+
+    public static double averageSalaryOfDepartment(Employee[] employees, int department) {
+        int workers = 0;
+        for (Employee worker : employees) {
+            if (worker.department == department) {
+                workers++;
+            }
+        }
+        return salaryCostsOfDepartment(employees, department) / workers;
+    }
+
+    public static void indexSalaryOfDepartment(Employee[] employees, double percentage, int department) {
+        for (Employee worker : employees) {
+            if (worker.department == department) {
+                worker.salary += (worker.salary * percentage / 100);
+            }
+        }
+    }
+
+    public static void listOfEmployeesOfDepartment(Employee[] employees, int department) {
+        System.out.println("The list of employees of the department N " + department);
+        for (Employee worker : employees) {
+            if (worker.department == department) {
+                System.out.println("The name of an employee is " + worker.name);
+                System.out.println("The id of an employee is " + worker.idOfEmployee);
+                System.out.println("The salary of an employee is " + worker.salary+" rubles");
+                System.out.println();
+            }
+        }
+    }
+
+    public static void moreSalary(Employee[] employees, double salaryRange) {
+        System.out.println("The list of employees with the salary less than " + salaryRange + " rubles:");
+        for (Employee worker : employees) {
+            if (worker.salary < salaryRange) {
+                System.out.println("The id of an employee is " + worker.idOfEmployee);
+                System.out.println("The name of an employee is " + worker.name);
+                System.out.println("The salary of an employee is " + worker.salary + " rubles.");
+                System.out.println();
+            }
+        }
+    }
+
+    public static void lessSalary(Employee[] employees, double salaryRange) {
+        System.out.println("The list of employees with the salary more than " + salaryRange + " rubles:");
+        for (Employee worker : employees) {
+            if (worker.salary >= salaryRange) {
+                System.out.println("The id of an employee is " + worker.idOfEmployee);
+                System.out.println("The name of an employee is " + worker.name);
+                System.out.println("The salary of an employee is " + worker.salary + " rubles.");
+                System.out.println();
+            }
+        }
+    }
+
+    public static void infoAboutDepartment(Employee[] employees, int department) {
+        int workersOfDepartment = 0;
+        for (Employee worker : employees) {
+            if (worker.department == department) {
+                workersOfDepartment++;
+            }
+        }
+        Employee[] employeesOfDepartment = new Employee[workersOfDepartment];
+
+        for (int i = 0, j = 0; i < employees.length; i++) {
+            if (employees[i].department == department) {
+                employeesOfDepartment[j] = employees[i];
+                j++;
+            }
+        }
+        System.out.println("Employee with the minimum wage of the department is " + Employee.minSalaryEmployee(employeesOfDepartment).getName());
+        System.out.println("Employee with the maximum wage of the department is " + Employee.maxSalaryEmployee(employeesOfDepartment).getName());
+        System.out.println("The total costs of employees salaries of the department per month: " + Employee.salaryCosts(employeesOfDepartment) + " rubles.");
+        System.out.println("The average salary is " + Employee.salaryCosts(employeesOfDepartment) / workersOfDepartment + " rubles.");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the percentage of the salary's indexation: ");
+        double indexRate;
+        indexRate = scanner.nextDouble();
+        indexSalary(employeesOfDepartment, indexRate);
+        scanner.close();
+
+
+        for (Employee worker : employeesOfDepartment) {
+            System.out.println("The name of an employee is " + worker.name);
+            for (Employee empl : employees) {
+                if (empl.name.equals(worker.name)) {
+                    System.out.println("The id of an employee is " + empl.idOfEmployee);
+                }
+            }
+            System.out.println("The salary of an employee is " + worker.salary + " rubles.");
+            System.out.println();
+        }
+    }
+
 }
