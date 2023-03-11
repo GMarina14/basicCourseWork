@@ -11,39 +11,21 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-       for (int i = 0; i < 4 *//*employees.length*//*; ++i) {
-            System.out.println("Enter the full name of an employee N" + (i + 1) + ": ");
-
-            nameOfEmployee = scanner.nextLine();
-            scanner.nextLine();
+       for (int i = 0; i < 10 ; ++i) {
+           System.out.println("Enter the full name of an employee N" + (i + 1) + ": ");
+           nameOfEmployee = scanner.nextLine();
+           // scanner.nextLine();
            System.out.println("Enter the department (1-5) of an employee N" + (i + 1) + ": ");
-           department=scanner.nextInt();
-         scanner.nextLine();
+           department = scanner.nextInt();
+           scanner.nextLine();
            System.out.println("Enter the salary of an employee N" + (i + 1) + ": ");
            salaryOfEmployee = scanner.nextDouble();
-           scanner.nextLine();*/
+           scanner.nextLine();
+           employees[i] = new Employee(nameOfEmployee, department, salaryOfEmployee);
 
-         /*   try{
-                department=Integer.parseInt(scanner.nextLine());
-            }catch (NumberFormatException e){
-                e.printStackTrace();
-            }
-
-           *//*try{
-               salaryOfEmployee=Double.parseDouble(scanner.nextLine());
-           }catch (NumberFormatException d){
-               d.printStackTrace();
-           }*//*
-
-          // department = scanner.nextInt();
-           scanner.nextLine();*/
-/*
-            employees[i] = new Employee(nameOfEmployee, department, salaryOfEmployee);
-            nameOfEmployee="";
-            department=0;
-            salaryOfEmployee=0.0;
-        }
+       }
         scanner.close();*/
+
 
         employees[0] = new Employee("Sara Fisher", 5, 15000);
         employees[1] = new Employee("Nick Radclyffe", 1, 17000);
