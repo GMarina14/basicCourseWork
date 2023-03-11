@@ -2,6 +2,8 @@ import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.SortedMap;
 
+import static java.lang.Double.MAX_VALUE;
+
 public class Employee {
     private final String name;
     private int department;
@@ -117,14 +119,9 @@ public class Employee {
 
 
     public static Employee employeeWithMinSalaryOfDepartment(Employee[] employees, int department) {
-        double minSalary = 0.0;
+        double minSalary = MAX_VALUE;
         int workerMinId = 0;
-        for (Employee worker : employees) {
-            if (worker.department == department) {
-                minSalary = worker.salary;
-                break;
-            }
-        }
+
         for (int i = 0; i < employees.length; i++) {
             if (employees[i].department == department) {
                 if (employees[i].salary < minSalary) {
